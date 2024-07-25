@@ -1,7 +1,8 @@
+# %%
 import numpy as np
 import rasterio
 from Py6S import *
-
+# %%
 def atmospheric_correction(band, wavelength, s):
     # Set the wavelength
     s.wavelength = Wavelength(wavelength)
@@ -63,3 +64,5 @@ profile.update(
 # Save the corrected image
 with rasterio.open(output_file, 'w', **profile) as dst:
     dst.write(corrected_band, 1)
+
+# %%

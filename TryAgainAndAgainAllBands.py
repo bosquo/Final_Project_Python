@@ -92,3 +92,18 @@ profile.update(
 with rasterio.open(output_file, 'w', **profile) as dst:
     for i in range(num_bands):
         dst.write(corrected_bands[i], i + 1)
+
+# Script for EO-Browser to downlead a tiff that contains all 12 Bands
+'''
+//VERSION=3
+function setup() {
+  return {
+    input: ["B01","B02","B03","B04","B05","B06","B07","B08","B8A","B09","B11","B12"],
+    output: { bands: 12 }
+  };
+}
+
+function evaluatePixel(sample) {
+  return Object.values(sample);
+}
+'''

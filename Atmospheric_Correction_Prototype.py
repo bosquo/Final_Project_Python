@@ -29,13 +29,20 @@ def atmospheric_correction(band, wavelength, s):
     s.geometry = Geometry.User()
     s.geometry.solar_z = 30   # Example solar zenith angle
     s.geometry.solar_a = 0    # Example solar azimuth angle
-    s.geometry.view_z = 0     # Example viewing zenith angle
+    s.geometry.view_z = 00     # Example viewing zenith angle
     s.geometry.view_a = 0     # Example viewing azimuth angle
 
     s.run()
+
+    # Print Py6S outputs for debugging
+    print("Atmospheric Intrinsic Reflectance:", s.outputs.atmospheric_intrinsic_reflectance)
+    print("Total Gaseous Transmittance:", s.outputs.total_gaseous_transmittance)
+    print("Aerosol Scattering Reflectance:", s.outputs.aerosol_scattering_reflectance)
     
     # Get the atmospheric correction factor
     coeff = s.outputs.atmospheric_intrinsic_reflectance
+    print(coeff, "wtf")
+
     # Avoid divide by zero error
     coeff = np.where(coeff == 0, np.nan, coeff)
     corrected_band = band / coeff
