@@ -3,6 +3,12 @@ import numpy as np
 import rasterio
 from Py6S import *
 
+global solar_zenith
+solar_zenith = int(input("Enter solar zenith angle: "))
+solar_azimuth = int(input("Enter solar azimuth angle: "))
+viewing_zenith = int(input("Enter viewing zenith angle: "))
+viewing_zenith = int(input("Enter viewing azimuth angle: "))
+
 # %%
 def atmospheric_correction(band, wavelength, s):
     # Set the wavelength
@@ -13,10 +19,10 @@ def atmospheric_correction(band, wavelength, s):
     s.ground_reflectance = GroundReflectance.HomogeneousLambertian(0.2)
     # Set geometry parameters
     s.geometry = Geometry.User()
-    s.geometry.solar_z = 30  # Example solar zenith angle
-    s.geometry.solar_a = 0   # Example solar azimuth angle
-    s.geometry.view_z = 0    # Example viewing zenith angle
-    s.geometry.view_a = 0    # Example viewing azimuth angle
+    s.geometry.solar_z = solar_zenith  # Example solar zenith angle
+    s.geometry.solar_a = solar_azimuth   # Example solar azimuth angle
+    s.geometry.view_z = viewing_zenith    # Example viewing zenith angle
+    s.geometry.view_a = viewing_zenith    # Example viewing azimuth angle
 
     # Run the simulation
     s.run()
@@ -37,7 +43,7 @@ def atmospheric_correction(band, wavelength, s):
 
 # Load the Sentinel-2 image
 input_file = r'C:\Studium\2. Semester\Application Development (GIS)\Python\Final_Project\L1C_Imagery\Florence.tiff'
-output_file = r'C:\Studium\2. Semester\Application Development (GIS)\Python\Final_Project\L2A_Imagery\corrected_Image.tiff'
+output_file = r'C:\Studium\2. Semester\Application Development (GIS)\Python\Final_Project\L2A_Imagery\parameter_corrected_Image.tiff'
 
 # Initialize the Py6S model
 s = SixS()
